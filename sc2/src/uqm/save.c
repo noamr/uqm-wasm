@@ -41,6 +41,7 @@
 #include "libs/inplib.h"
 #include "libs/log.h"
 #include "libs/memlib.h"
+#include "js-persist.h"
 
 // Status boolean. If for some insane reason you need to
 // save games in different threads, you'll need to
@@ -803,6 +804,7 @@ SaveGame (COUNT which_game, SUMMARY_DESC *SummPtr, const char *name)
 			DeleteResFile(saveDir, file);
 			return FALSE;
 		}
+		js_persist();
 	}
 	else
 	{

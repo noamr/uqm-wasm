@@ -30,6 +30,7 @@
 #include <stdlib.h>
 // XXX: we should not include anything from uqm/ inside libs/
 #include "uqm/coderes.h"
+#include "js-persist.h"
 
 static RESOURCE_INDEX
 allocResourceIndex (void) {
@@ -414,6 +415,7 @@ SaveResourceIndex (uio_DirHandle *dir, const char *rmpfile, const char *root, BO
 	}
 	res_CloseResFile (f);
 	CharHashTable_freeIterator (it);
+	js_persist();
 }
 
 void

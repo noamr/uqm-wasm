@@ -1,0 +1,1 @@
+/Users/nrosenthal/code/emsdk/upstream/emscripten/emcc -pthread -pthread @CMakeFiles/png-fix-itxt.dir/objects1.rsp -o png-fix-itxt.js @CMakeFiles/png-fix-itxt.dir/linkLibs.rsp

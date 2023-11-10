@@ -1,0 +1,1 @@
+/Users/nrosenthal/code/emsdk/upstream/emscripten/emcc -pthread -pthread @CMakeFiles/pngvalid.dir/objects1.rsp -o pngvalid.js @CMakeFiles/pngvalid.dir/linkLibs.rsp
