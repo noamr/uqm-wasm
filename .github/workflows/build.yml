@@ -49,6 +49,7 @@ jobs:
       - name: Create site package
         run: |
           mkdir _site
+          cp sc2/src/emscripten/sw.js _site/
           cp sc2/src/emscripten/live.html _site/
           cp sc2/uqm.js _site/
           cp sc2/uqm.worker.js _site/
