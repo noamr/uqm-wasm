@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<head>
+    <meta name="charset" content="utf8">
+    <style>
+        body {
+            display: flex;
+            align-items: stretch;
+            justify-content: stretch;
+            margin: 0;
+        }
+        main {
+            display: flex;
+            flex: 1;
+            align-items: stretch;
+            justify-content: center;
+            background: black;
+        }
+        canvas#main-canvas {
+            height: 100vh;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <canvas width="1024" height="768" id="main-canvas"></canvas>
+    </main>
+    <script>
+        var Module = {
+            print() {
+
+            },
+
+            arguments: ["-r", "1024x768"],
+
+            canvas: document.querySelector("canvas#main-canvas"),
+            setStatus(text) {
+
+            },
+
+            monitorRunDependencies(left) {
+
+            }
+        }
+    </script>
+    <script src="uqm.js"></script>
+</body>
