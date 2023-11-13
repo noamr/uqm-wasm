@@ -41,11 +41,18 @@ jobs:
           emconfigure ./build.sh uqm config
           ./build.sh uqm
           popd
-      - name: Publish files
+
+      - name: Create site package
         run: |
-          cp sc2/src/emscripten/live.html ./index.html
-          cp sc2/*.js ./
-          cp sc2/*.wasm ./
-          cp sc2/*.data ./
-          rm -rf sc2
-          rm README.md
+          mkdir _site
+          cp sc2/src/emscripten/live.html _site/
+          cp sc2/uqm.js _site/
+          cp sc2/uqm.worker.js _site/
+          cp sc2/uqm.wasm _site/
+          cp sc2/uqm.data _site/
+          tar czvf github-pages _site
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v3
+
+
