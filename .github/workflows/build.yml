@@ -44,8 +44,14 @@ jobs:
       # Runs a set of commands using the runners shell
       - name: Build uqm
         run: |
+          mkdir pub
+          pushd .
           cd sc2
           emconfigure ./build.sh uqm config
           ./build.sh uqm
           rm -rf obj
-          cp src/emscripten/live.html .
+          popd
+          cp sc2/src/emscripten/live.html pub/index.html
+          cp sc2/uqm*.js pub/uqm.js
+          cp sc2/uqm.wasm pub/uqm.wasm
+          cp sc2/uqm.data pub/uqm.data
