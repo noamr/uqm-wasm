@@ -1,36 +1,48 @@
-name: Build
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+# Controls when the workflow will run
 on:
+  # Triggers the workflow on push or pull request events but only for the "main" branch
   push:
-    branches: [main, proposed]
+    branches: [ "main" ]
   pull_request:
-  schedule:
-    # 16:38 UTC on Tuesdays
-    - cron: "38 16 * * TUE"
-  repository_dispatch:
-    types: [tests]
+    branches: [ "main" ]
 
-env:
-  DOCKER_BUILDKIT: 1
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
 
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
+  # This workflow contains a single job called "build"
   build:
+    # The type of runner that the job will run on
     runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      - uses: actions/checkout@v1
-      - name: Log into registry
-        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
-      - name: Build with Emscripten
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
+
+      - uses: mymindstorm/setup-emsdk@v11
+      - name: Verify
+        run: emcc -v
+
+      - name: Build lipng
+      - run: |
+          pushd .
+          cd sc2/libpng-1.6.40
+          cd libpng-1.6.40
+          emcmake cmake
+          emmake make
+          popd
+
+      # Runs a set of commands using the runners shell
+      - name: Build uqm
         run: |
           cd sc2
-          docker build --tag=uqm-wasm -f wasm/Dockerfile . \
-            --build-arg BUILDKIT_INLINE_CACHE=1 \
-            --cache-from=ghcr.io/intgr/uqm-wasm:latest
-      - name: Compare detected configuration
-        run: |
-          cd sc2
-          docker run --rm uqm-wasm grep CHOICE config.state \
-            |diff -us --color=always wasm/config.state.expected -
-      - name: Push build cache
-        run: |
-          docker tag uqm-wasm ghcr.io/intgr/uqm-wasm:latest
-          docker push ghcr.io/intgr/uqm-wasm:latest
+          emconfigure ./build.sh uqm config
+          ./build.sh uqm
+          rm -rf obj
+          cp src/emscripten/live.html .
