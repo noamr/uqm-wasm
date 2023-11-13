@@ -52,7 +52,7 @@ jobs:
           cp sc2/uqm.data _site/
           tar czvf github-pages _site
 
-      - name: Configure GitHub Pages
-        uses: actions/configure-pages@v3
+      - name: Upload GitHub Pages artifact
+        uses: actions/upload-pages-artifact@v1
 
 
