@@ -24,11 +24,11 @@ jobs:
       - uses: actions/checkout@v3
 
       - uses: mymindstorm/setup-emsdk@v11
-      - name: Verify
+        name: Verify
         run: emcc -v
 
       - name: Build lipng
-      - run: |
+        run: |
           pushd .
           cd sc2/libpng-1.6.40
           cd libpng-1.6.40
