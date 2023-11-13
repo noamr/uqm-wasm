@@ -33,18 +33,9 @@ jobs:
       - name: Download Emscripten ports
         run: emcc -c -E - -s USE_ZLIB=1 -s USE_LIBPNG=1 -s USE_VORBIS=1 -s USE_SDL=2 -s ASYNCIFY -pthread </dev/null
 
-      - name: Build lipng
-        run: |
-          pushd .
-          cd sc2/libpng-1.6.40
-          emcmake cmake
-          emmake make
-          popd
-
       # Runs a set of commands using the runners shell
       - name: Build uqm
         run: |
-          mkdir pub
           pushd .
           cd sc2
           emconfigure ./build.sh uqm config
@@ -57,3 +48,4 @@ jobs:
           cp sc2/*.wasm ./
           cp sc2/*.data ./
           rm -rf sc2
+          rm README.md
