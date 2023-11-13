@@ -49,8 +49,9 @@ jobs:
           cd sc2
           emconfigure ./build.sh uqm config
           ./build.sh uqm
-          rm -rf obj
           popd
+      - name: Publish files
+      - run: |
           cp sc2/src/emscripten/live.html ./index.html
           cp sc2/*.js ./
           cp sc2/*.wasm ./
