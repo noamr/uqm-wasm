@@ -1,1 +1,0 @@
-/Users/nrosenthal/code/emsdk/upstream/emscripten/emcc -pthread -pthread @CMakeFiles/pngimage.dir/objects1.rsp -o pngimage.js @CMakeFiles/pngimage.dir/linkLibs.rsp

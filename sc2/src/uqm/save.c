@@ -41,7 +41,7 @@
 #include "libs/inplib.h"
 #include "libs/log.h"
 #include "libs/memlib.h"
-#include "js-persist.h"
+#include "libs/js-persist.h"
 
 // Status boolean. If for some insane reason you need to
 // save games in different threads, you'll need to
@@ -681,7 +681,7 @@ SaveGroups (uio_Stream *fh)
 		int i;
 		ReadGroupHeader (fp, &h);
 		/* Group List */
-		SeekStateFile (fp, h.GroupOffset[0], SEEK_SET);	
+		SeekStateFile (fp, h.GroupOffset[0], SEEK_SET);
 		sread_8 (fp, &lastenc);
 		sread_8 (fp, &count);
 		write_32 (fh, GROUP_LIST_TAG);
@@ -797,14 +797,14 @@ SaveGame (COUNT which_game, SUMMARY_DESC *SummPtr, const char *name)
 
 		// Save out the Star Descriptor
 		SaveStarDesc (&SD, out_fp);
-		
+
 		res_CloseResFile (out_fp);
 		if (!io_ok)
 		{
 			DeleteResFile(saveDir, file);
 			return FALSE;
 		}
-		js_persist();
+		EM_PersistFilesystem();
 	}
 	else
 	{

@@ -76,3 +76,9 @@ pngout.png
 
 # Libpng CI artifacts
 out/
+
+# CMake
+*.cmake
+CMakeFiles
+*.wasm
+CMakeCache.txt
