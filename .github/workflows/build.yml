@@ -20,13 +20,18 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v3
+      - name: Checkout repo
+        uses: actions/checkout@v3
 
-      - uses: mymindstorm/setup-emsdk@v11
 
-      - name: Verify
+      - name: Initialize Emscripten
+        uses: mymindstorm/setup-emsdk@v11
+
+      - name: Verify Emscriptent is OK
         run: emcc -v
+
+      - name: Download Emscripten ports
+        run: emcc -c -E - -s USE_ZLIB=1 -s USE_LIBPNG=1 -s USE_VORBIS=1 -s USE_SDL=2 -s ASYNCIFY -pthread </dev/null
 
       - name: Build lipng
         run: |
