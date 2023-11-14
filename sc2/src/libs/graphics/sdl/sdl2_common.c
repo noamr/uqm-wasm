@@ -74,10 +74,6 @@ TFB_PreQuit (void)
 	SDL_Quit ();
 }
 
-#ifdef EMSCRIPTEN
-extern void EM_SetCanvasSize(int width, int height, int fullscreen);
-#endif
-
 int
 TFB_ReInitGraphics (int driver, int flags, int width, int height)
 {
@@ -100,10 +96,6 @@ TFB_ReInitGraphics (int driver, int flags, int width, int height)
 		SDL_ShowCursor (SDL_DISABLE);
 	else
 		SDL_ShowCursor (SDL_ENABLE);
-
-#ifdef EMSCRIPTEN
-	EM_SetCanvasSize(width, height, flags & TFB_GFXFLAGS_FULLSCREEN);
-#endif
 
 	return result;
 }
